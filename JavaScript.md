@@ -17,6 +17,7 @@
 13. [Generator Functions](#13-generator-functions)
 14. [WeakMap & WeakSet](#14-weakmap--weakset)
 15. [Proxy & Reflect](#15-proxy--reflect)
+16. [PolyFills](#16-poly--Fills)
 
 ---
 
@@ -1114,6 +1115,70 @@ console.log(arr[-2]); // 4
 ```
 
 ---
+
+## 16. PolyFills
+### Theory 
+A polyfill is a piece of code (usually JavaScript) used to provide modern functionality on older browsers or environments that do not natively support it.
+
+#### Map: 
+```javascript
+Array.prototype.myFilter = function(cb){
+    let mapped = [];
+    for(let i = 0; i<this.length; i++){
+        if(cb(this[i], i, this)){
+            mapped.push(this[i]);
+        }
+    }
+    return mapped;
+}
+
+let num = [1,2,3,4];
+const result = num.myFilter((item) => {
+    return item > 2;
+})
+
+console.log(result);
+
+```
+#### Filter:
+```javascript
+Array.prototype.myFilter = function(cb){
+    let mapped = [];
+    for(let i = 0; i<this.length; i++){
+        if(cb(this[i], i, this)){
+            mapped.push(this[i]);
+        }
+    }
+    return mapped;
+}
+
+let num = [1,2,3,4];
+const result = num.myFilter((item) => {
+    return item > 2;
+})
+
+console.log(result);
+```
+#### Reduce
+```javascript
+Array.prototype.myReduce = function (cb, initialValue) {
+    let accumulator = initialValue;
+    
+    for (let i = 0; i < this.length; i++) {
+        accumulator = cb(accumulator, this[i], i, this);
+    }
+
+    return accumulator;
+};
+
+let num = [1,2,3,4];
+const result = num.myReduce((accum, curr) => {
+    return accum + curr;
+},0);
+
+console.log(result);
+```
+
 
 ## 🎯 Bonus: Quick-Fire Interview Questions
 
